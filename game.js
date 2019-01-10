@@ -4,6 +4,7 @@ let GameScore = 0;
 let level = 0;
 let segments = [];
 let bullets = [];
+let bulletDelay = 10;
 
 let keys = [];
 let keyPressed = function(){ keys[keyCode] = true};
@@ -45,9 +46,10 @@ let Player = function(x, y, size, speed){
       this.y -= this.speed;
     }
 
-    if(keys[ALT]){
+    if(keys[ALT] && bulletDelay < 0){
       var b = new Bullet(this.x, this.y, 5, 5);
       bullets.push(b);
+      bulletDelay = 40;
     }
 
     if(this.x < 0){
@@ -107,7 +109,37 @@ let checkCollide = (player, segments) => {
     }
     
   }
-}
+};
+
+let checkBulletCollide = (bullets, segments) => {
+  for (let bulletCounter = 0; bulletCounter < bullets.length; bulletCounter++) {
+    if (bullets[bulletCounter].y < 0){
+      bullets.splice(BulletCounter, 1);
+    }    
+  }
+
+  let bulletToRemove = "none";
+  let dotToRemove = "none";
+
+  for (let bulletCounter = 0; bulletCounter < bullets.length; bulletCounter++) {
+    for (let i = 0; i < segments.length; i++) {
+      let distance = dist(bullets[bulletCounter].x, bullets[bulletCounter].y, segments[i].x, segments[i].y);
+      
+      if(distance < bullets[bulletCounter].size/2 + dots[i].size/2){
+        bulletToRemove = bulletCounter;
+        dotToRemove = i;
+      }
+    }
+  }
+
+  if (bulletToRemove !== "none"){
+    bullets.splice(bulletToRemove, 1);
+  }
+  if (dotToRemove !== "none"){
+    segments.splice(dotToRemove, 1);
+  }
+
+};
 
 let player = new Player(100, 350, 19, 1);
 
@@ -124,13 +156,16 @@ let draw = function(){
       segment[i].show();      
     }
     for (let i = 0; i < bullets.length; i++) {
-      segment[i].move();
-      segment[i].show();      
+      bullets[i].move();
+      bullets[i].show();      
     }
 
   player.update();
+  bulletDelay = bulletDelay - 1;
 
   checkCollide(player, segments);
+
+  checkBulletCollide(bullets, segments);
 
   fill(255, 0, 0);
   text("Score: " + GameScore + "       Level: " + level, 15, 30);
