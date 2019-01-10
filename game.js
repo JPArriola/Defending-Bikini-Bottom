@@ -3,10 +3,27 @@ console.log("Hello People");
 let GameScore = 0;
 let level = 0;
 let segments = [];
+let bullets = [];
 
 let keys = [];
 let keyPressed = function(){ keys[keyCode] = true};
 let keyReleased = function(){ delete keys[keyCode];} ;
+
+let Bullet = (x, y, size, speed) => {
+  this.x = x;
+  this.y = y;
+  this.size = size;
+  this.speed = speed;
+  this.show = function () {
+    noStroke();
+    fill(176, 176, 176);
+    ellipse(this.x, this.y, this.size, this.size);
+  };
+
+  this.move = function () {
+    this.y = this.y - this.speed;
+  };
+};
 
 let Player = function(x, y, size, speed){
   this.x = x;
@@ -26,6 +43,11 @@ let Player = function(x, y, size, speed){
     }
     if(keys[UP]){
       this.y -= this.speed;
+    }
+
+    if(keys[ALT]){
+      var b = new Bullet(this.x, this.y, 5, 5);
+      bullets.push(b);
     }
 
     if(this.x < 0){
@@ -74,6 +96,19 @@ let Segment = function (x, y, size, speed) {
   };
 };
 
+let checkCollide = (player, segments) => {
+  for (let i = 0; i < segments.length; i++) {
+    let distance = dist(player.x, player.y, segments[i].x, segments[i].y);
+    if(distance < player.size / 2 + segments[i].size/2){
+      //a crash has happened
+        segments.length = 0;
+        player.x = width/2;
+        player.y = height - 40;
+    }
+    
+  }
+}
+
 let player = new Player(100, 350, 19, 1);
 
 let draw = function(){
@@ -88,8 +123,14 @@ let draw = function(){
       segment[i].move();
       segment[i].show();      
     }
+    for (let i = 0; i < bullets.length; i++) {
+      segment[i].move();
+      segment[i].show();      
+    }
 
   player.update();
+
+  checkCollide(player, segments);
 
   fill(255, 0, 0);
   text("Score: " + GameScore + "       Level: " + level, 15, 30);
