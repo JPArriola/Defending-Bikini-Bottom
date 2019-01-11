@@ -1,14 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centipede</title>
+  <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
-  Hello World
+  <div class="wrap">
+    <header>Garden Pixel Defense</header>
+    <div class="game-wrapper">
+      <div class="game"></div>
+      <div class="congratulations">
+        <h1>Congratulations!</h1>
+        <h2>You won the game</h2>
+        <button class="btn" onclick="window.location.reload()">Restart</button>
+      </div>
+      <div class="game-over">
+        <h1>GAME OVER</h1>
+        <h2>You Lose</h2>
+        <button class="btn" onclick="window.location.reload()">Restart</button>
+      </div>
+    </div>
+    <footer>Type Controls here later, github, linkedIn information</footer>
+  </div>
+  <script src="js/game.js"></script>
 </body>
-  <script src="game.js"></script>
+
 </html>
