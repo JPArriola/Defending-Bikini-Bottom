@@ -26,7 +26,7 @@ footer {
   padding: 10px;
   text-align: center;
   font-size: 11px;
-  background: black;
+  background: pink;
   color: white;
 }
 
@@ -41,7 +41,7 @@ footer {
 }
 
 .game {
-  width: 400px;
+  width: 800px;
   height: 600px;
   /* background: grey; */
   background-image: url("/img/greytransparent.png");
@@ -141,4 +141,27 @@ footer {
   100% {
     transform: translate(0, 0);
   }
+}
+
+.github {
+  background-image: url(https://camo.githubusercontent.com/7710b43d0476b6f6d4b4b2865e35c108f69991f3/68747470733a2f2f7777772e69636f6e66696e6465722e636f6d2f646174612f69636f6e732f6f637469636f6e732f313032342f6d61726b2d6769746875622d3235362e706e67);
+  /* background-image: url("/img/github.png"); */
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.linkedin {
+  background-image: url(http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c528.png);
+  height: 30px;
+  width: 130px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.dev-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
