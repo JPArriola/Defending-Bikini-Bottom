@@ -1,20 +1,20 @@
-const KEY_CODE_LEFT = 37;
-const KEY_CODE_RIGHT = 39;
-const KEY_CODE_SPACE = 32;
+let KEY_CODE_LEFT = 37;
+let KEY_CODE_RIGHT = 39;
+let KEY_CODE_SPACE = 32;
 
-const GAME_WIDTH = 800;
-const GAME_HEIGHT = 600;
+let GAME_WIDTH = 800;
+let GAME_HEIGHT = 600;
 
-const PLAYER_WIDTH = 20;
-const PLAYER_MAX_SPEED = 600;
-const LASER_MAX_SPEED = 300;
-const LASER_COOLDOWN = 0;
+let PLAYER_WIDTH = 20;
+let PLAYER_MAX_SPEED = 600;
+let LASER_MAX_SPEED = 300;
+let LASER_COOLDOWN = 0.0;
 
-const ENEMIES_PER_ROW = 10;
-const ENEMY_HORIZONTAL_PADDING = 80;
-const ENEMY_VERTICAL_PADDING = 70;
-const ENEMY_VERTICAL_SPACING = 80;
-const ENEMY_COOLDOWN = 3.0;
+let ENEMIES_PER_ROW = 10;
+let ENEMY_HORIZONTAL_PADDING = 80;
+let ENEMY_VERTICAL_PADDING = 70;
+let ENEMY_VERTICAL_SPACING = 80;
+let ENEMY_COOLDOWN = 6.0;
 
 const GAME_STATE = {
   lastTime: Date.now(),
@@ -29,10 +29,9 @@ const GAME_STATE = {
   enemyLasers: [],
   gameOver: false,
   score: 0,
-  level: 0,
+  level: 1,
 };
 
-//intersection function
 function rectsIntersect(r1, r2) {
   return !(
     r2.left > r1.right ||
@@ -41,7 +40,6 @@ function rectsIntersect(r1, r2) {
     r2.bottom < r1.top 
   );
 }
-//basically on hit
 
 function setPosition($el, x, y) {
   $el.style.transform = `translate(${x}px, ${y}px)`;
@@ -73,12 +71,34 @@ function createPlayer($container){
   setPosition($player, GAME_STATE.playerX, GAME_STATE.playerY);
 }
 
+// function init(){
+//   const $container = document.querySelector(".game");
+//   createPlayer($container);
+
+//   const enemySpacing = (GAME_WIDTH - ENEMY_HORIZONTAL_PADDING * 2) /
+//     (ENEMIES_PER_ROW - 1);
+//   for (let j = 0; j < 3; j++) {
+//     const y = ENEMY_VERTICAL_PADDING + j * ENEMY_VERTICAL_SPACING;
+//     for (let i = 0; i < ENEMIES_PER_ROW; i++) {
+//       const x = i * enemySpacing + ENEMY_HORIZONTAL_PADDING;
+//       createEnemy($container, x, y);
+//     }
+//   }
+// }
+
 function init(){
+  playerInit();
+  enemyInit();
+}
+
+function playerInit(){
   const $container = document.querySelector(".game");
   createPlayer($container);
+}
 
-  const enemySpacing = (GAME_WIDTH - ENEMY_HORIZONTAL_PADDING * 2) /
-    (ENEMIES_PER_ROW - 1);
+function enemyInit(){
+  const $container = document.querySelector(".game");
+  const enemySpacing = (GAME_WIDTH - ENEMY_HORIZONTAL_PADDING * 2) / (ENEMIES_PER_ROW - 1);
   for (let j = 0; j < 3; j++) {
     const y = ENEMY_VERTICAL_PADDING + j * ENEMY_VERTICAL_SPACING;
     for (let i = 0; i < ENEMIES_PER_ROW; i++) {
@@ -93,8 +113,12 @@ function destroyPlayer($container, player) {
   GAME_STATE.gameOver = true;
 }
 
+// function playerHasWon() {
+//   return GAME_STATE.enemies.length === 0;
+// }
+
 function playerHasWon() {
-  return GAME_STATE.enemies.length === 0;
+  return GAME_STATE.level > 5;
 }
 
 function updatePlayer(dt, $container){
@@ -126,6 +150,7 @@ function createLaser($container, x, y) {
   const laser = {x, y, $element};
   GAME_STATE.lasers.push(laser);
   const audio = new Audio("sound/gary_meow.mp3");
+  audio.volume = 0.5;
   audio.play();
   setPosition($element, x, y);
 }
@@ -139,7 +164,6 @@ function updateLasers(dt, $container){
       destroyLaser($container, laser);
     }
     setPosition(laser.$element, laser.x, laser.y);
-    //enemy collision
     const r1 = laser.$element.getBoundingClientRect();
     const enemies = GAME_STATE.enemies;
     for (let j = 0; j < enemies.length; j++) {
@@ -152,7 +176,6 @@ function updateLasers(dt, $container){
         break;
       }
     }
-    //end of enemy collision
   }
   GAME_STATE.lasers = GAME_STATE.lasers.filter(l => !l.isDead);
 }
@@ -162,7 +185,6 @@ function destroyLaser($container, laser){
   laser.isDead = true;
 }
 
-//space invader enemy
 function createEnemy($container, x, y){
   const $element = document.createElement("img");
   $element.src = "img/plankton.png";
@@ -191,21 +213,25 @@ function updateEnemies(dt, $container) {
   }
   GAME_STATE.enemies = GAME_STATE.enemies.filter(e => !e.isDead);
 }
-// end of space invader enemy
 
 function destroyEnemy($container, enemy){
+  document.querySelector(".level").innerHTML = GAME_STATE.level;
   $container.removeChild(enemy.$element);
   enemy.isDead = true;
-  const audio = new Audio("/sound/gary_meow.mp3");
-  audio.volume = 0.6;
+  const audio = new Audio("/sound/plankton_yell.mp3");
+  audio.volume = 1.0;
   audio.play();
   GAME_STATE.score += 10;
   document.querySelector(".score").innerHTML=GAME_STATE.score;
-    if (GAME_STATE.score % 100 === 0) {
+    if (GAME_STATE.score % 300 === 0) {
       GAME_STATE.level += 1;
+      ENEMY_COOLDOWN = (ENEMY_COOLDOWN * 0.7);
+      if(GAME_STATE.level <= 5){
+        const audio = new Audio("sound/new_level.mp3");
+        audio.play();
+      }
+      console.log(ENEMY_COOLDOWN);
     }
-  document.querySelector(".level").innerHTML = GAME_STATE.level;
-  console.log(GAME_STATE.score);
 }
 
 function createEnemyLaser($container, x, y) {
@@ -231,7 +257,6 @@ function updateEnemyLasers(dt, $container) {
     const player = document.querySelector(".player");
     const r2 = player.getBoundingClientRect();
     if (rectsIntersect(r1, r2)) {
-      // Player was hit
       destroyPlayer($container, player);
       break;
     }
@@ -251,6 +276,10 @@ function update(){
   if(playerHasWon()){
     document.querySelector(".congratulations").style.display = "block";
     return;
+  }
+
+  if (GAME_STATE.enemies.length === 0){
+    enemyInit();
   }
 
   const $container = document.querySelector(".game");
