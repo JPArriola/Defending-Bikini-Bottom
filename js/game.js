@@ -201,7 +201,7 @@ function destroyEnemy($container, enemy){
   audio.play();
   GAME_STATE.score += 10;
   document.querySelector(".score").innerHTML=GAME_STATE.score;
-    if (GAME_STATE.score % 50 === 0) {
+    if (GAME_STATE.score % 100 === 0) {
       GAME_STATE.level += 1;
     }
   document.querySelector(".level").innerHTML = GAME_STATE.level;

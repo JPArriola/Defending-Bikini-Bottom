@@ -52,6 +52,14 @@ footer {
   position: relative;
 }
 
+.score {
+
+}
+
+.level {
+
+}
+
 @keyframes scroll-background {
   from {
     background-position-y: 0px;
@@ -143,7 +151,7 @@ footer {
   }
 }
 
-.github {
+a.github {
   background-image: url(https://camo.githubusercontent.com/7710b43d0476b6f6d4b4b2865e35c108f69991f3/68747470733a2f2f7777772e69636f6e66696e6465722e636f6d2f646174612f69636f6e732f6f637469636f6e732f313032342f6d61726b2d6769746875622d3235362e706e67);
   /* background-image: url("/img/github.png"); */
   height: 30px;
@@ -152,10 +160,10 @@ footer {
   background-size: cover;
 }
 
-.linkedin {
+a.linkedin {
   background-image: url(http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c528.png);
   height: 30px;
-  width: 130px;
+  width: 110px;
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -163,5 +171,5 @@ footer {
 .dev-info {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
