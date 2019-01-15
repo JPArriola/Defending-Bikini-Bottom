@@ -27,9 +27,11 @@ header {
 footer {
   padding: 10px;
   text-align: center;
-  font-size: 11px;
+  /* font-size: 11px; */
   background: pink;
-  color: white;
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .game-wrapper {

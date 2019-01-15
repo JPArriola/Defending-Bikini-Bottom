@@ -9,7 +9,7 @@ let GAME_HEIGHT = 600;
 let PLAYER_WIDTH = 20;
 let PLAYER_MAX_SPEED = 600;
 let LASER_MAX_SPEED = 300;
-let LASER_COOLDOWN = 0;
+let LASER_COOLDOWN = 0.5;
 
 let ENEMIES_PER_ROW = 10;
 let ENEMY_HORIZONTAL_PADDING = 80;
@@ -33,17 +33,30 @@ const GAME_STATE = {
   level: 1,
   killed: 0,
   mute: false,
+  rapidFire: false,
 };
 
 document.getElementById("fas").addEventListener("click", (e) => {
   GAME_STATE.mute = !GAME_STATE.mute;
-  console.log(e.target);
   if (GAME_STATE.mute) {
     e.target.classList.remove("fa-volume-up");
     e.target.classList.add("fa-volume-mute");
   } else {
     e.target.classList.remove("fa-volume-mute");
     e.target.classList.add("fa-volume-up");
+  }
+});
+
+document.getElementById("urf").addEventListener("click", (e) => {
+  GAME_STATE.rapidFire = !GAME_STATE.rapidFire;
+  if (GAME_STATE.rapidFire) {
+    LASER_COOLDOWN = 0;
+    e.target.classList.remove("fa-snowplow");
+    e.target.classList.add("fa-fighter-jet");
+  } else {
+    LASER_COOLDOWN = 0.5;
+    e.target.classList.remove("fa-fighter-jet");
+    e.target.classList.add("fa-snowplow");
   }
 });
 
@@ -321,7 +334,7 @@ function playSound(sound){
     case "gameOver":
       return new Audio("sound/game_over.mp3");
     case "plankton":
-      return new Audio("/sound/plankton_yell.mp3");
+      return new Audio("sound/plankton_yell.mp3");
     case "newLevel":
       return new Audio("sound/new_level.mp3");
     default:
