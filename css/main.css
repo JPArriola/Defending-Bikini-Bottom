@@ -37,7 +37,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(Defending-Bikini-Bottom/img/bikini_bottom.png);
+  background-image: url(../img/bikini_bottom.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -46,7 +46,7 @@ footer {
   width: 800px;
   height: 600px;
   /* background: grey; */
-  background-image: url(https://github.com/JPArriola/Defending-Bikini-Bottom/blob/master/img/greytransparent.png);
+  background-image: url("../img/greytransparent.png");
   /* opacity: 0.5; */
   border: 1px double black;
   animation: scroll-background 5s linear infinite;
