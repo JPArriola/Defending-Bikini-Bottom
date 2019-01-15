@@ -52,14 +52,6 @@ footer {
   position: relative;
 }
 
-.score {
-
-}
-
-.level {
-
-}
-
 @keyframes scroll-background {
   from {
     background-position-y: 0px;

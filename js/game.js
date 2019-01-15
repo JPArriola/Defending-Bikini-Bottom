@@ -8,7 +8,7 @@ let GAME_HEIGHT = 600;
 let PLAYER_WIDTH = 20;
 let PLAYER_MAX_SPEED = 600;
 let LASER_MAX_SPEED = 300;
-let LASER_COOLDOWN = 0.0;
+let LASER_COOLDOWN = 0;
 
 let ENEMIES_PER_ROW = 10;
 let ENEMY_HORIZONTAL_PADDING = 80;
@@ -30,6 +30,8 @@ const GAME_STATE = {
   gameOver: false,
   score: 0,
   level: 1,
+  killed: 0,
+  mute: false,
 };
 
 function rectsIntersect(r1, r2) {
@@ -71,21 +73,6 @@ function createPlayer($container){
   setPosition($player, GAME_STATE.playerX, GAME_STATE.playerY);
 }
 
-// function init(){
-//   const $container = document.querySelector(".game");
-//   createPlayer($container);
-
-//   const enemySpacing = (GAME_WIDTH - ENEMY_HORIZONTAL_PADDING * 2) /
-//     (ENEMIES_PER_ROW - 1);
-//   for (let j = 0; j < 3; j++) {
-//     const y = ENEMY_VERTICAL_PADDING + j * ENEMY_VERTICAL_SPACING;
-//     for (let i = 0; i < ENEMIES_PER_ROW; i++) {
-//       const x = i * enemySpacing + ENEMY_HORIZONTAL_PADDING;
-//       createEnemy($container, x, y);
-//     }
-//   }
-// }
-
 function init(){
   playerInit();
   enemyInit();
@@ -112,10 +99,6 @@ function destroyPlayer($container, player) {
   $container.removeChild(player);
   GAME_STATE.gameOver = true;
 }
-
-// function playerHasWon() {
-//   return GAME_STATE.enemies.length === 0;
-// }
 
 function playerHasWon() {
   return GAME_STATE.level > 5;
@@ -149,8 +132,9 @@ function createLaser($container, x, y) {
   $container.appendChild($element);
   const laser = {x, y, $element};
   GAME_STATE.lasers.push(laser);
-  const audio = new Audio("sound/gary_meow.mp3");
+  const audio = playSound("gary");
   audio.volume = 0.5;
+  audio.currentTime = 0;
   audio.play();
   setPosition($element, x, y);
 }
@@ -215,22 +199,23 @@ function updateEnemies(dt, $container) {
 }
 
 function destroyEnemy($container, enemy){
-  document.querySelector(".level").innerHTML = GAME_STATE.level;
+  GAME_STATE.level === 5 ? document.querySelector(".level").innerHTML = "Final" : document.querySelector(".level").innerHTML = GAME_STATE.level;
   $container.removeChild(enemy.$element);
   enemy.isDead = true;
-  const audio = new Audio("/sound/plankton_yell.mp3");
+  const audio = playSound("plankton");
   audio.volume = 1.0;
   audio.play();
-  GAME_STATE.score += 10;
+  GAME_STATE.score += (10 + (GAME_STATE.level));
+  GAME_STATE.killed += 1;
   document.querySelector(".score").innerHTML=GAME_STATE.score;
-    if (GAME_STATE.score % 300 === 0) {
+    if (GAME_STATE.killed % 30 === 0) {
       GAME_STATE.level += 1;
       ENEMY_COOLDOWN = (ENEMY_COOLDOWN * 0.7);
       if(GAME_STATE.level <= 5){
-        const audio = new Audio("sound/new_level.mp3");
+        const audio = playSound("newLevel");
+        audio.volume = 0.3;
         audio.play();
       }
-      console.log(ENEMY_COOLDOWN);
     }
 }
 
@@ -269,11 +254,15 @@ function update(){
   const dt = (currentTime - GAME_STATE.lastTime) / 1000;
 
   if (GAME_STATE.gameOver) {
+    const audio = playSound("gameOver");
+    audio.play();
     document.querySelector(".game-over").style.display = "block";
     return;
   }
 
   if(playerHasWon()){
+    const audio = playSound("win");
+    audio.play();
     document.querySelector(".congratulations").style.display = "block";
     return;
   }
@@ -290,6 +279,26 @@ function update(){
 
   GAME_STATE.lastTime = currentTime;
   window.requestAnimationFrame(update);
+}
+
+function playSound(sound){
+  if (GAME_STATE.mute){
+    return new Audio();
+  }
+  switch(sound){
+    case "gary":
+      return new Audio("sound/gary_meow.mp3");
+    case "win":
+      return new Audio("sound/win.mp3");
+    case "gameOver":
+      return new Audio("sound/game_over.mp3");
+    case "plankton":
+      return new Audio("/sound/plankton_yell.mp3");
+    case "newLevel":
+      return new Audio("sound/new_level.mp3");
+    default:
+      return new Audio();
+  }
 }
 
 function onKeyDown(e) {
