@@ -1,7 +1,6 @@
 let KEY_CODE_LEFT = 37;
 let KEY_CODE_RIGHT = 39;
 let KEY_CODE_SPACE = 32;
-let KEY_CODE_M = 77;
 
 let GAME_WIDTH = 800;
 let GAME_HEIGHT = 600;
@@ -57,6 +56,22 @@ document.getElementById("urf").addEventListener("click", (e) => {
     LASER_COOLDOWN = 0.5;
     e.target.classList.remove("fa-fighter-jet");
     e.target.classList.add("fa-snowplow");
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  let i = document.getElementById("urf");
+  if (e.keyCode === 85){
+    GAME_STATE.rapidFire = !GAME_STATE.rapidFire;
+    if (GAME_STATE.rapidFire) {
+      LASER_COOLDOWN = 0;
+      i.classList.remove("fa-snowplow");
+      i.classList.add("fa-fighter-jet");
+    } else {
+      LASER_COOLDOWN = 0.5;
+      i.classList.remove("fa-fighter-jet");
+      i.classList.add("fa-snowplow");
+    }
   }
 });
 
