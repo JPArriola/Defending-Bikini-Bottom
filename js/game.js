@@ -1,6 +1,7 @@
 let KEY_CODE_LEFT = 37;
 let KEY_CODE_RIGHT = 39;
 let KEY_CODE_SPACE = 32;
+let KEY_CODE_M = 77;
 
 let GAME_WIDTH = 800;
 let GAME_HEIGHT = 600;
@@ -33,6 +34,33 @@ const GAME_STATE = {
   killed: 0,
   mute: false,
 };
+
+document.getElementById("fas").addEventListener("click", (e) => {
+  GAME_STATE.mute = !GAME_STATE.mute;
+  console.log(e.target);
+  if (GAME_STATE.mute) {
+    e.target.classList.remove("fa-volume-up");
+    e.target.classList.add("fa-volume-mute");
+  } else {
+    e.target.classList.remove("fa-volume-mute");
+    e.target.classList.add("fa-volume-up");
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  let i = document.getElementById("fas");
+  if (e.keyCode === 77){
+    GAME_STATE.mute = !GAME_STATE.mute;
+    if (GAME_STATE.mute) {
+      i.classList.remove("fa-volume-up");
+      i.classList.add("fa-volume-mute");
+    } else {
+      i.classList.remove("fa-volume-mute");
+      i.classList.add("fa-volume-up");
+    }
+  }
+});
+
 
 function rectsIntersect(r1, r2) {
   return !(

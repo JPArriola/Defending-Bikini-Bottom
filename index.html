@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Defending Bikini Bottom</title>
   <link rel="stylesheet" href="css/main.css">
-  <favicon_link_tag asset_path="spongebob_house.ico" rel = 'icon' type = "image/x-icon" >
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+  <link id="favicon-link" rel="icon" href="./img/bikini_bottom_town.png" type="image/gif">
 </head>
 
 <body>
@@ -15,47 +16,53 @@
     <div class="game-wrapper">
       <div class="game">
       </div>
-        <div class="score-container">
-          Score:
-          <div class="score">
-            0
+        <div class="sidebar">
+          <div class="score-container">
+            Score:
+            <div class="score">
+              0
+            </div>
           </div>
-        <div class="level-container">
-          Level:
-          <div class="level">
-            1
+          <div class="level-container">
+            Level:
+            <div class="level">
+              1
+            </div>
+          </div>
+          <div class="final-level-container">
+          </div>
+          <div class="mute-button">
+            
+            <i id="fas" class="fas fa-volume-up">MUTE</i>
           </div>
         </div>
-        <div class="final-level-container">
+        <div class="congratulations">
+          <h1>You saved the city!</h1>
+          <h2>You won the game</h2>
+          <button class="btn" onclick="window.location.reload()">Restart</button>
+          <h3>Visit the developer:</h3>
+          <div class="dev-info">
+            <a href="https://github.com/JPArriola" target="_blank" class="github" />
+            <a href="https://www.linkedin.com/in/joshuaarriola/" target="_blank" class="linkedin" />
+            <a href="#"></a>
+          </div>
+        </div>
+        <div class="game-over">
+          <h1>GAME OVER</h1>
+          <h2>You Lose</h2>
+          <button class="btn" onclick="window.location.reload()">Restart</button>
+          <h3>Visit the developer:</h3>
+          <div class="dev-info">
+            <a href="https://github.com/JPArriola" target="_blank" class="github" />
+            <a href="https://www.linkedin.com/in/joshuaarriola/" target="_blank" class="linkedin" />
+            <a href="#"></a>
+          </div>
         </div>
       </div>
-      <div class="congratulations">
-        <h1>You saved the city!</h1>
-        <h2>You won the game</h2>
-        <button class="btn" onclick="window.location.reload()">Restart</button>
-        <h3>Visit the developer:</h3>
-        <div class="dev-info">
-          <a href="https://github.com/JPArriola" target="_blank" class="github" />
-          <a href="https://www.linkedin.com/in/joshuaarriola/" target="_blank" class="linkedin" />
-          <a href="#"></a>
-        </div>
-      </div>
-      <div class="game-over">
-        <h1>GAME OVER</h1>
-        <h2>You Lose</h2>
-        <button class="btn" onclick="window.location.reload()">Restart</button>
-        <h3>Visit the developer:</h3>
-        <div class="dev-info">
-          <a href="https://github.com/JPArriola" target="_blank" class="github" />
-          <a href="https://www.linkedin.com/in/joshuaarriola/" target="_blank" class="linkedin" />
-          <a href="#"></a>
-        </div>
-
-        
-      </div>
-    </div>
   </div>
   <script src="js/game.js"></script>
 </body>
-
+  <script>
+    console.log(GAME_STATE);
+  </script>
 </html>

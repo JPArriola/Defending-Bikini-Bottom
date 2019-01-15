@@ -17,8 +17,10 @@ body {
 
 header {
   text-align: center;
-  background: black;
-  color: #fff;
+  background: lightcoral;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
   padding: 10px;
 }
 
@@ -48,7 +50,8 @@ footer {
   /* opacity: 0.5; */
   border: 1px double black;
   animation: scroll-background 5s linear infinite;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+  0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: relative;
 }
 
@@ -164,4 +167,15 @@ a.linkedin {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100px;
+  height: 300px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
 }
