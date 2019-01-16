@@ -6,7 +6,7 @@ The game gets progressively harder as the Planktons fire faster at higher levels
 
 This game is inspired by a classic arcade game that I grew up playing called Space Invaders.
 
-[Centipede](https://en.wikipedia.org/wiki/Space_Invaders)
+[Space Invaders](https://en.wikipedia.org/wiki/Space_Invaders)
 
 ### Functionality
 
