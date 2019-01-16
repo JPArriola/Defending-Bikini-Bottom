@@ -158,9 +158,10 @@ a.github {
 }
 
 a.linkedin {
-  background-image: url(http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c528.png);
+  /* background-image: url(http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c528.png); */
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png);
   height: 30px;
-  width: 110px;
+  width: 30px;
   background-repeat: no-repeat;
   background-size: contain;
 }
