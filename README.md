@@ -28,7 +28,7 @@ This game is inspired by a classic arcade game that I grew up playing called Spa
 * After clearing all 5 levels, Gary has won the game!
 ![](img/readme/game_win.png)
 
-#### Technologies employed
+### Technologies employed
 
 * Vanilla JavaScript for game logic.
 * React.js for basic page structure and functionality.
