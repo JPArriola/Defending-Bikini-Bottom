@@ -45,11 +45,11 @@ footer {
 }
 
 .game {
-  width: 800px;
+  /* width: 800px; */
   height: 600px;
-  /* background: grey; */
+  width: 500px;
+  /* flex: 2.6; */
   background-image: url("../img/greytransparent.png");
-  /* opacity: 0.5; */
   border: 1px double black;
   animation: scroll-background 5s linear infinite;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
@@ -150,7 +150,6 @@ footer {
 
 a.github {
   background-image: url(https://camo.githubusercontent.com/7710b43d0476b6f6d4b4b2865e35c108f69991f3/68747470733a2f2f7777772e69636f6e66696e6465722e636f6d2f646174612f69636f6e732f6f637469636f6e732f313032342f6d61726b2d6769746875622d3235362e706e67);
-  /* background-image: url("/img/github.png"); */
   height: 30px;
   width: 30px;
   background-repeat: no-repeat;
@@ -158,7 +157,6 @@ a.github {
 }
 
 a.linkedin {
-  /* background-image: url(http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c528.png); */
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png);
   height: 30px;
   width: 30px;
@@ -173,12 +171,18 @@ a.linkedin {
 }
 
 .sidebar{
+  /* flex: 1; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 100px;
+  width: 225px;
   height: 300px;
   color: white;
   font-size: 18px;
   font-weight: bold;
+  border: 1px solid pink;
+  background: #68DFDF;
+  margin: 5px;
+  text-align: center;
+  border-radius: 5px;
 }

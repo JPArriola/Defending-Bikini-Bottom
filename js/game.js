@@ -2,7 +2,7 @@ let KEY_CODE_LEFT = 37;
 let KEY_CODE_RIGHT = 39;
 let KEY_CODE_SPACE = 32;
 
-let GAME_WIDTH = 800;
+let GAME_WIDTH = 500;
 let GAME_HEIGHT = 600;
 
 let PLAYER_WIDTH = 20;
@@ -10,7 +10,7 @@ let PLAYER_MAX_SPEED = 600;
 let LASER_MAX_SPEED = 300;
 let LASER_COOLDOWN = 0.5;
 
-let ENEMIES_PER_ROW = 10;
+let ENEMIES_PER_ROW = 7;
 let ENEMY_HORIZONTAL_PADDING = 80;
 let ENEMY_VERTICAL_PADDING = 70;
 let ENEMY_VERTICAL_SPACING = 80;
@@ -264,7 +264,7 @@ function destroyEnemy($container, enemy){
   GAME_STATE.score += (10 + (GAME_STATE.level));
   GAME_STATE.killed += 1;
   document.querySelector(".score").innerHTML=GAME_STATE.score;
-    if (GAME_STATE.killed % 30 === 0) {
+    if (GAME_STATE.killed % (3 * ENEMIES_PER_ROW) === 0) {
       GAME_STATE.level += 1;
       ENEMY_COOLDOWN = (ENEMY_COOLDOWN * 0.7);
       if(GAME_STATE.level <= 5){
