@@ -347,7 +347,7 @@ function playSound(sound){
     case "win":
       return new Audio("sound/win.mp3");
     case "gameOver":
-      return new Audio("sound/game_over.mp3");
+      return new Audio("sound/game_over_short.mp3");
     case "plankton":
       return new Audio("sound/plankton_yell.mp3");
     case "newLevel":
